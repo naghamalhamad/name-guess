@@ -1,0 +1,52 @@
+
+.age{
+   
+}
+
+    .card{
+        width: 500px;
+        height: 60%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        padding: 40px;
+        transform: translate(-50%, -50%);
+        background-color:hsl(159, 39%, 72%);
+        border-radius: 10px;
+
+    }
+    .inputtext{
+        border-radius: 8px; 
+        width:50%;
+        height: 25px;
+        margin: 10px 0 10px;
+    }
+
+    .btn{
+        width: 25%;
+        height: 30px;
+        margin-top: 20px;
+        border-radius: 8px;
+        outline: none;
+        border: 0 solid;
+        background-color:  hsl(158, 36%, 37%);
+        color: hsl(30, 38%, 92%);
+        font-family: 'Montserrat', sans-serif;
+        cursor: pointer;
+        margin-left: 10px;
+        
+       
+     
+    }
+    .inputContainer{
+        padding-left: 10%;
+     
+    }
+    .flags{
+        display: flex;
+        width: 80%;
+        padding: auto;
+        justify-content: space-between;
+        padding: 10px;
+        align-items: center;
+    }

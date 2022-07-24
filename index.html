@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="name.css">
+
+
+</head>
+<body>
+  <div class=" container">
+    <h1> Name & Guess</h1>
+<div class="card">
+    <div class=" inputContainer">
+    <label class="inputlabel">Enter Your name: </label><br>
+    <input class="inputtext" name="inputtext" type="text" required  >
+    <input class="btn" type="button" value="submit" onclick="validate()">
+
+   </div> 
+
+  <div class="genderImgdiv">
+    <img id="genderImg" src="" alt="genderImg">
+  </div>
+
+  <p class="age">Age: </p>
+
+  <div class="flags">
+    <img class="flag1" src="" alt="flag1">
+    <img class="flag2" src="" alt="flag2">
+    <img class="flag3" src="" alt="flag3">
+  </div>
+</div>
+  </div>
+
+</body>
+<script>
+ 
+  
+     //create input filed
+     const btn=document.querySelector('.inputbtn');
+     const inputContainer=document.querySelector('.inputContainer');
+     inputContainer.addEventListener('click',function(e){
+     e.preventDefault();
+     const inputtext=document.querySelector('.inputtext');
+
+      //console.log(inputtext.value);
+     });
+
+    //check input one-word entering
+    const inputtext = document.querySelector('.inputtext');
+    const container = document.querySelector('.container');
+    const card= document.querySelector('.card');
+    function validate(){
+    const validinput=inputtext.value.split(' ');
+    if(validinput.length===1){
+    Promise.all([fetch('https://api.genderize.io?name=joseph')
+   .then((response)=> response.json()),
+    fetch( 'https://api.nationalize.io?name=nathaniel')
+    .then((response)=> response.json()),
+    fetch('https://api.agify.io?name=meelad')
+    .then((response)=> response.json()),
+])
+  .then((result)=> {
+    const gender = result[0].gender;
+    const country = result[1]; 
+    const age = result[2].age;
+
+    //show age in html doc
+    const showage=document.querySelector('.age');
+    showage.innerText= 'Age:'+age;
+    card.appendChild(showage);
+
+    //to check
+    console.log(gender);
+    console.log(age);
+    console.log(country);
+
+    //check gender and add image
+    if (gender==='female'){
+      const genderimg = document.querySelector('#genderImg');
+      const genderImgdiv=document.querySelector('.genderImgdiv');
+     genderimg.setAttribute('src','female.png');
+      //then append
+      card.appendChild(genderimg);
+      }
+      })
+   /*.then(fetch('https://restcountries.com/v3.1/alpha?codes=us'))
+   .then((response)=> response.json())
+   .then((result)=> {
+    const flags = result.flags;
+    console.log(flags);});*/
+ 
+    }
+    else
+    console.log('false');
+    };
+
+
+
+
+   
+
+
+
+
+
+
+   
+
+
+
+
+
+
+</script>
+
+</html>
