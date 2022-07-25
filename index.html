@@ -18,11 +18,11 @@
 
    </div> 
 
-  <div class="genderImgdiv">
-    <img id="genderImg" src="" alt="genderImg">
+  <div class="genderimgcontainer">
+    <p class="gendertxt">Gender: </p>
   </div>
 
-  <p class="age">Age: </p>
+  <p class="age">Age:</p>
 
   <div class="flags">
     <img class="flag1" src="" alt="flag1">
@@ -42,29 +42,51 @@
      inputContainer.addEventListener('click',function(e){
      e.preventDefault();
      const inputtext=document.querySelector('.inputtext');
-
-      //console.log(inputtext.value);
+    
+      //console.log(inputvalue);
      });
 
     //check input one-word entering
     const inputtext = document.querySelector('.inputtext');
     const container = document.querySelector('.container');
     const card= document.querySelector('.card');
+    const showgender= document.querySelector('.gendertext');
     function validate(){
+
     const validinput=inputtext.value.split(' ');
     if(validinput.length===1){
-    Promise.all([fetch('https://api.genderize.io?name=joseph')
-   .then((response)=> response.json()),
-    fetch( 'https://api.nationalize.io?name=nathaniel')
+  //if the input is valid 
+  //get the data using fetch and promise.all
+    const inputvalue= inputtext.value;
+    Promise.all([fetch('https://api.genderize.io?name='+inputvalue)
     .then((response)=> response.json()),
-    fetch('https://api.agify.io?name=meelad')
+    fetch( 'https://api.nationalize.io?name='+inputvalue)
+    .then((response)=> response.json()),
+    fetch('https://api.agify.io?name='+inputvalue)
     .then((response)=> response.json()),
 ])
-  .then((result)=> {
-    const gender = result[0].gender;
-    const country = result[1]; 
-    const age = result[2].age;
+  .then((json)=> {
+    const gender = json[0].gender;
+    const country = json[1].country[0].country_id; 
+    const age = json[2].age;
 
+    
+    //check the gender and show the result
+    const gendertxt= document.querySelector('.gendertxt');
+    if (gender==='male'){
+      const showmale= document.createElement('img');
+      showmale.classList.add('male');
+      showmale.src='male.svg';
+      gendertxt.appendChild(showmale);
+      }
+    else{
+      const showfemale= document.createElement('img');
+      showfemale.classList.add('female');
+      showfemale.src='female.svg';
+      gendertxt.appendChild(showfemale);
+    }
+
+    
     //show age in html doc
     const showage=document.querySelector('.age');
     showage.innerText= 'Age:'+age;
@@ -75,43 +97,28 @@
     console.log(age);
     console.log(country);
 
-    //check gender and add image
-    if (gender==='female'){
-      const genderimg = document.querySelector('#genderImg');
-      const genderImgdiv=document.querySelector('.genderImgdiv');
-     genderimg.setAttribute('src','female.png');
-      //then append
-      card.appendChild(genderimg);
-      }
-      })
-   /*.then(fetch('https://restcountries.com/v3.1/alpha?codes=us'))
+    })
+     // get the countries id
+   .then(fetch('https://restcountries.com/v3.1/alpha?codes=us'))
    .then((response)=> response.json())
-   .then((result)=> {
-    const flags = result.flags;
-    console.log(flags);});*/
- 
+   .then((json)=> {
+    // show the flag of the countries
+    console.log(json);
+    })
+    
+    .catch((err) => {
+      console.log(err);
+      });
     }
-    else
-    console.log('false');
+    
+    else{
+    alert('Sorry I can\'t take your input.');
+    }
     };
-
-
-
-
-   
-
-
-
-
-
-
-   
-
-
-
 
 
 
 </script>
 
 </html>
+
