@@ -1,6 +1,6 @@
+*{
+    font-family: 'Nunito Sans', sans-serif;
 
-.age{
-   
 }
 
     .card{
@@ -11,15 +11,21 @@
         left: 50%;
         padding: 40px;
         transform: translate(-50%, -50%);
-        background-color:hsl(159, 39%, 72%);
+        background-color:hsl(313, 52%, 88%);
         border-radius: 10px;
 
+    }
+    h1{
+        text-align: center;
+        margin-top: 30px;
     }
     .inputtext{
         border-radius: 8px; 
         width:50%;
         height: 25px;
         margin: 10px 0 10px;
+        border: 0.1px solid gray;
+
     }
 
     .btn{
@@ -38,6 +44,16 @@
        
      
     }
+    
+    .gendertxt{
+        width: 100%;
+        margin:20px 10px 60px 0;
+    }
+    .female,.male{
+        position: absolute;
+        padding: 10px;
+    }
+   
     .inputContainer{
         padding-left: 10%;
      
@@ -45,8 +61,14 @@
     .flags{
         display: flex;
         width: 80%;
-        padding: auto;
-        justify-content: space-between;
-        padding: 10px;
+        padding-top:10px;
         align-items: center;
+      
+    }
+    .flag1{
+        width: 150px;
+        height: 100px;
+        display: inline;
+        padding-left: 20px;
+
     }
