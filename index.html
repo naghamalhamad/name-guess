@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
   <link rel="stylesheet" type="text/css" href="name.css">
+  <script>main.js</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,700&family=Montserrat:ital,wght@0,500;0,700;1,400&family=Nunito+Sans:wght@300;600;800&family=Outfit:wght@100;400&display=swap" rel="stylesheet">
@@ -16,153 +17,30 @@
 <div class="card">
     <div class=" inputContainer">
     <label class="inputlabel">Enter Your name: </label><br>
-    <input class="inputtext" name="inputtext" type="text" required  >
-    <input class="btn" type="button" value="submit" onclick="validate()" >
+    <input class="inputtext" name="inputtext" type="text" required onfocus="this.value='' " >
+    <input class="btn" type="button" value="submit" onclick="validate()" onchange="cleardata()" >
 
    </div> 
+  
 
   <div class="genderimgcontainer">
     <p class="gendertxt">Gender: </p>
   </div>
 <div class="agecontainer">
-  <p class="age">Age:</p>
+  <p class="age">Age: </p>
   </div>
 
   <div>
-    <p class="flags">Country: </p>
+    <p class="flags"> Country:</p>
    
   </div>
 </div>
+<span class="storagecard">
+    
+</span>
   </div>
 
 </body>
-<script>
- 
-  
-     //create input filed
-     'use strict'
-     const btn=document.querySelector('.inputbtn');
-     const inputContainer=document.querySelector('.inputContainer');
-     inputContainer.addEventListener('click',function(e){
-     e.preventDefault();
-     const inputtext=document.querySelector('.inputtext');
-     });
-
-
-    //check input one-word entering
-    //DOM file
-    const inputtext = document.querySelector('.inputtext');
-    const container = document.querySelector('.container');
-    const card= document.querySelector('.card');
-    const showgender= document.querySelector('.gendertext');
-    function validate(){
-
-    const validinput=inputtext.value.split(' ');
-    if(validinput.length===1){
-    //if the input is valid 
-
-      //get the data using fetch and promise.all
-      //API file
-      const inputvalue= inputtext.value;
-      Promise.all([fetch('https://api.genderize.io?name='+inputvalue)
-      .then((response)=> response.json()),
-      fetch( 'https://api.nationalize.io?name='+inputvalue)
-      .then((response)=> response.json()),
-      fetch('https://api.agify.io?name='+inputvalue)
-      .then((response)=> response.json())
-     
-])
- 
-
-
-    // show the flag of the countries
-    //DOM File   
-    .then((json)=> {
-    const gender = json[0].gender;
-    const country = json[1].country[0].country_id; 
-    const age = json[2].age;
-
-     // get the countries id
-     //API file
-     fetch('https://restcountries.com/v3.1/alpha?codes='+country)
-     .then((response)=> response.json())
-     .then ((json) => {
-
-      const showflag1= document.createElement('img');
-      const showflag2= document.createElement('img');
-      const showflag3= document.createElement('img');
-      const flags= document.querySelector('.flags');
-      showflag2.classList.add('flag1');
-      showflag2.src=json[0].flags.svg;
-      flags.appendChild(showflag2);
-     })
-    
-    
-    //check the gender and show the result
-  const gendertxt= document.querySelector('.gendertxt');
-    if (gender==='male'){
-       const showmale= document.createElement('img');
-       showmale.classList.add('male');
-       showmale.src='male.svg';
-       gendertxt.appendChild(showmale);
-      
-      }
-    else{
-      const showfemale= document.createElement('img');
-       showfemale.classList.add('female');
-       showfemale.src='female.svg';
-       gendertxt.appendChild(showfemale);
-      
-    }
-
-    
-    //show age in html doc
-    const showage=document.querySelector('.age');
-    const agecontainer=document.querySelector('.agecontainer');
-    showage.innerText= 'Age: '+age;
-    agecontainer.appendChild(showage);
-
-    //to check
-    console.log(gender);
-    console.log(age);
-    console.log(country);
-    })
-
-    .catch((err) => {
-      console.log(err);
-      }); 
-    
-    //reload the page 
-    
-    // store info in local storage
-    //stringfiy the values (json) store to the local storage
-    //set 'key' ,json.stringfy([+input]);
-    //get json.parse([loc[ ]])
-
-    }
-
-
-    else{
-    alert('Sorry I can\'t take your input.');
-    }
-    };
-
-
-
-   
-
-
-
-
-
-
-   
-
-
-
-
-
-
-</script>
 
 </html>
+
